@@ -22,6 +22,27 @@ class POW : public Base{
 		virtual std::string stringify() {
 	   		 return ("(" + val1->stringify() + "**" + val2->stringify() + ")"); 
 		}
+                virtual int number_of_children() {
+                        int num = 0;
+                        if(val1!= nullptr)
+                                ++num;
+                        if(val2!= nullptr)
+                                ++num;
+                        return num;
+                }
+
+                virtual Base* get_child(int i) {
+                        if(i < number_of_children()){
+                                if(i == 0){
+                                        return val1;
+                                }
+                                if(i == 1){
+                                        return val2;
+                                }
+                        }
+
+                }
+
 };
 
 #endif

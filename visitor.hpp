@@ -71,8 +71,8 @@ class VisitorLaTeX : public Visitor {
 
 class VisitorMathML : public Visitor {
 	private:
-		std::string output = "";
-		int indent = 0;
+		std::string str = "";
+		int index = 0;
 	public:
 
 		virtual void visit_op(Op* node);
@@ -94,18 +94,18 @@ class VisitorMathML : public Visitor {
         	virtual void visit_pow_middle(POW* node);
         	virtual void visit_pow_end(POW* node);
 		virtual std::string getString(){
-			return output;
+			return str;
 		}
-		std::string finalstring(std::string input);
+		std::string finaloutput(std::string input);
 		void increment(){
-			indent = indent + 1;
+			index = index + 1;
 		}
 		void decrement(){
-			indent = indent - 1;
+			index = index - 1;
 		}
-		void addIndent(){
-			for(int i = 0; i < indent; ++i){
-				output = output + "\t";
+		void addIndex(){
+			for(int i = 0; i < index; ++i){
+				str = str + "\t";
 			}
 		
 		}

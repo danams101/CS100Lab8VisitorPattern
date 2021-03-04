@@ -15,6 +15,9 @@ class Op : public Base {
 		return num; 
 	}
 	virtual Base* get_child(int i) { return nullptr; }
+	virtual void accept(Visitor* visitor, int index){
+		visitor->visit_op(this);
+	}
 
     private:
         double val;

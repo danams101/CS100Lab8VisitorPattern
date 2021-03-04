@@ -37,6 +37,16 @@ class Mult : public Base {
 
         }
 
+	virtual void accept(Visitor* visitor, int index) {
+                if(index == 0)
+                        visitor->visit_mult_begin(this);
+                if(index == 1)
+                        visitor->visit_mult_middle(this);
+                if(index == 2)
+                        visitor->visit_mult_end(this);
+
+	}
+
 
     private:
 	Base* leftVal = nullptr;

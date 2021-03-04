@@ -41,5 +41,14 @@ class ADD : public Base{
 			}
 
 		}
+		
+		virtual void accept(Visitor* visitor, int index){
+			if(index == 0)
+				visitor->visit_add_begin(this);
+			if(index == 1)
+				visitor->visit_add_middle(this);
+			if(index == 2)
+				visitor->visit_add_end(this);
+		}
 };
 #endif

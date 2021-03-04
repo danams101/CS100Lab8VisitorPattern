@@ -42,6 +42,16 @@ class Div : public Base {
 
         }
 
+	virtual void accept(Visitor* visitor, int index) {
+                if(index == 0)
+                        visitor->visit_div_begin(this);
+                if(index == 1)
+                        visitor->visit_div_middle(this);
+                if(index == 2)
+                        visitor->visit_div_end(this);
+		
+	}
+
 
     private:
         Base* leftVal = nullptr;

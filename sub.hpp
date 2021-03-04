@@ -2,6 +2,7 @@
 #define SUB_HPP
 
 #include "base.hpp"
+#include "visitor.hpp"
 
 class SUB : public Base{
 	private:

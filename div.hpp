@@ -2,6 +2,7 @@
 #define __DIV_HPP__
 
 #include "base.hpp"
+#include "visitor.hpp"
 
 class Div : public Base {
     public:

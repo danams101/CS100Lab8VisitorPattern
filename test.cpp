@@ -7,6 +7,7 @@
 #include "pow.hpp"
 #include "rand.hpp"
 #include "iterator.hpp"
+#include "visitor.hpp"
 
 #include "gtest/gtest.h"
 #include <string>
@@ -181,6 +182,100 @@ TEST(IteratorTest, evaluateTest){
         EXPECT_EQ(eval, 4);
 
 
+}
+
+//VisitorLaTeX tests
+TEST(LatexTest, addTest){
+	Base* val1 = new Op(1);
+	Base* val2 = new Op(2);
+
+	ADD* add = new ADD(val1, val2);
+	Iterator* it = new Iterator(add);
+
+    	VisitorLaTeX* v = new VisitorLaTeX();
+	for(it; !it->is_done(); it->next()){
+		it->current_node()->accept(v,it->current_index());
+	}
+
+	EXPECT_EQ(v->getString(), "${({1.000000}+{2.000000})}$");
+}
+TEST(LatexTest, subTest){
+        Base* val1 = new Op(8);
+        Base* val2 = new Op(3);
+
+        SUB* sub = new SUB(val1, val2);
+        Iterator* it = new Iterator(sub);
+
+        VisitorLaTeX* v = new VisitorLaTeX();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "${({8.000000}-{3.000000})}$");
+}
+TEST(LatexTest, multTest){
+        Base* val1 = new Op(3);
+        Base* val2 = new Op(4);
+
+        Mult* mult = new Mult(val1, val2);
+        Iterator* it = new Iterator(mult);
+
+        VisitorLaTeX* v = new VisitorLaTeX();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "${({3.000000}\\cdot{4.000000})}$");
+}
+TEST(LatexTest, divTest){
+        Base* val1 = new Op(12);
+        Base* val2 = new Op(6);
+
+        Div* div = new Div(val1, val2);
+        Iterator* it = new Iterator(div);
+
+        VisitorLaTeX* v = new VisitorLaTeX();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "${\\frac{12.000000}{6.000000}}$");
+}
+TEST(LatexTest, powTest){
+        Base* val1 = new Op(3);
+        Base* val2 = new Op(2);
+
+        POW* pow = new POW(val1, val2);
+        Iterator* it = new Iterator(pow);
+
+        VisitorLaTeX* v = new VisitorLaTeX();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "${({3.000000}^{2.000000})}$");
+}
+TEST(LatexTest, treeTest){
+        Base* val1 = new Op(1);
+    	Base* val2 = new Op(2);
+    	Base* val3 = new Op(3);
+
+    	SUB* s1 = new SUB(val2, val1);
+    	Mult* m1 = new Mult(val3, val2);
+    	Div* d1 = new Div(m1, s1);
+
+    	POW* p1 = new POW(val2, val3);
+
+    	ADD* add = new ADD(d1, p1);
+       
+        Iterator* it = new Iterator(add);
+
+        VisitorLaTeX* v = new VisitorLaTeX();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "${({\\frac{({3.000000}\\cdot{2.000000})}{({2.000000}-{1.000000})}}+{({2.000000}^{3.000000})})}$");
 }
 
 

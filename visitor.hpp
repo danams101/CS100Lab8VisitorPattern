@@ -105,7 +105,7 @@ class VisitorMathML : public Visitor {
 		}
 		void addIndex(){
 			for(int i = 0; i < index; ++i){
-				str = str + "   ";
+				str = str + "\t";
 			}
 		
 		}

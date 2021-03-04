@@ -69,11 +69,12 @@ class VisitorLaTeX : public Visitor {
         virtual void visit_pow_end(POW* node);
 };
 
-class VisitMathML : public Visitor{
+class VisitorMathML : public Visitor {
 	private:
 		std::string output = "";
-		int index = 0;
+		int indent = 0;
 	public:
+
 		virtual void visit_op(Op* node);
 		virtual void visit_rand(Rand* node);
 		
@@ -92,22 +93,23 @@ class VisitMathML : public Visitor{
         	virtual void visit_pow_begin(POW* node);
         	virtual void visit_pow_middle(POW* node);
         	virtual void visit_pow_end(POW* node);
-
 		virtual std::string getString(){
 			return output;
-		};
-		std::string finaloutput(std::string input);
-		void increment(){
-			index++;
-		}	
-		void decrement(){
-			index--;
 		}
-		void addIndex(){
-			for(int i = 0; i < index; ++i){
+		std::string finalstring(std::string input);
+		void increment(){
+			indent = indent + 1;
+		}
+		void decrement(){
+			indent = indent - 1;
+		}
+		void addIndent(){
+			for(int i = 0; i < indent; ++i){
 				output = output + "\t";
 			}
+		
 		}
 };
+
 
 #endif //__VISITOR_HPP__

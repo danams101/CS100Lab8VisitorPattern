@@ -26,7 +26,7 @@ std::string PrintLaTeX(Base* ptr){
 std::string PrintMathML(Base* ptr){
 	Iterator* it = new Iterator(ptr);
 	
-	VisitMathML* v = new VisitMathML();
+	VisitorMathML* v = new VisitorMathML();
 	for(it; !it->is_done();it->next()){
 		it->current_node() -> accept(v,it->current_index());
 	}	
@@ -54,7 +54,8 @@ int main() {
 
     std::cout << PrintLaTeX(add) << "\n";
 
-    std::cout << add->stringify() << " => \n MathML: ";
+    std::cout << add->stringify() << " => \n MathML: \n";
+
 
     std::cout << PrintMathML(add) << "\n";
 

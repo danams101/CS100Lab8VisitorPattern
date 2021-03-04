@@ -3,7 +3,7 @@
 
 #include "base.hpp"
 #include <cmath>
-
+#include "visitor.hpp"
 class POW : public Base{
 	private:
 		Base* val1 = nullptr;

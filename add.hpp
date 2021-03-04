@@ -2,7 +2,7 @@
 #define ADD_HPP
 
 #include "base.hpp"
-
+#include "visitor.hpp"
 class ADD : public Base{
 	private:
 		Base* val1 = nullptr;

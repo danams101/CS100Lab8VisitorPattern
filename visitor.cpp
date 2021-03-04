@@ -141,7 +141,7 @@ void VisitorLaTeX::visit_pow_end(POW* node){
                         finaloutput(input);
                         increment();
                         addIndex();
-                        input = "\t<times/>\n";
+                        input = "\t<divide/>\n";
                         finaloutput(input);
                 }
                 void VisitorMathML::visit_div_middle(Div* node){}
@@ -158,7 +158,7 @@ void VisitorLaTeX::visit_pow_end(POW* node){
                         finaloutput(input);
                         increment();
                         addIndex();
-                        input = "\t<times/>\n";
+                        input = "\t<power/>\n";
                         finaloutput(input);
                 }
                 void VisitorMathML::visit_pow_middle(POW* node){}

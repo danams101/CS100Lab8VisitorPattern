@@ -278,6 +278,98 @@ TEST(LatexTest, treeTest){
         EXPECT_EQ(v->getString(), "${({\\frac{({3.000000}\\cdot{2.000000})}{({2.000000}-{1.000000})}}+{({2.000000}^{3.000000})})}$");
 }
 
+//MathML
+TEST(MathMLTest, addTest){
+	Base* val1 = new Op(1);
+	Base* val2 = new Op(2);
+
+	ADD* add = new ADD(val1, val2);
+	Iterator* it = new Iterator(add);
+
+    	VisitorMathML* v = new VisitorMathML();
+	for(it; !it->is_done(); it->next()){
+		it->current_node()->accept(v,it->current_index());
+	}
+
+	EXPECT_EQ(v->getString(), "\t<apply>\n   \t<plus/>\n   \t<cn>1.000000</cn>\n   \t<cn>2.000000</cn>\n\t</apply>\n");
+}
+
+TEST(MathMLTest, subTest){
+        Base* val1 = new Op(1);
+        Base* val2 = new Op(2);
+
+        SUB* add = new SUB(val1, val2);
+        Iterator* it = new Iterator(add);
+
+        VisitorMathML* v = new VisitorMathML();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "\t<apply>\n   \t<minus/>\n   \t<cn>1.000000</cn>\n   \t<cn>2.000000</cn>\n\t</apply>\n");
+}
+
+TEST(MathMLTest, multTest){
+        Base* val1 = new Op(1);
+        Base* val2 = new Op(2);
+
+        Mult* add = new Mult(val1, val2);
+        Iterator* it = new Iterator(add);
+
+        VisitorMathML* v = new VisitorMathML();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "\t<apply>\n   \t<times/>\n   \t<cn>1.000000</cn>\n   \t<cn>2.000000</cn>\n\t</apply>\n");
+}
+
+TEST(MathMLTest, divTest){
+        Base* val1 = new Op(1);
+        Base* val2 = new Op(2);
+
+        Div* add = new Div(val1, val2);
+        Iterator* it = new Iterator(add);
+
+        VisitorMathML* v = new VisitorMathML();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "\t<apply>\n   \t<divide/>\n   \t<cn>1.000000</cn>\n   \t<cn>2.000000</cn>\n\t</apply>\n");
+}
+
+TEST(MathMLTest, powTest){
+        Base* val1 = new Op(1);
+        Base* val2 = new Op(2);
+
+        POW* add = new POW(val1, val2);
+        Iterator* it = new Iterator(add);
+
+        VisitorMathML* v = new VisitorMathML();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "\t<apply>\n   \t<power/>\n   \t<cn>1.000000</cn>\n   \t<cn>2.000000</cn>\n\t</apply>\n");
+}
+
+TEST(MathMLTest, ComplexTest){
+        Base* val1 = new Op(1);
+        Base* val2 = new Op(5);
+	Base* val3 = new Op(3);
+        ADD* xD = new ADD(val1, val2);
+	SUB* add = new SUB(xD,val3);
+        Iterator* it = new Iterator(add);
+	
+        VisitorMathML* v = new VisitorMathML();
+        for(it; !it->is_done(); it->next()){
+                it->current_node()->accept(v,it->current_index());
+        }
+
+        EXPECT_EQ(v->getString(), "\t<apply>\n   \t<minus/>\n   \t<apply>\n      \t<plus/>\n      \t<cn>1.000000</cn>\n      \t<cn>5.000000</cn>\n   \t</apply>\n   \t<cn>3.000000</cn>\n\t</apply>\n");
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

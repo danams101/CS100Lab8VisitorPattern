@@ -1,14 +1,7 @@
 #ifndef __VISITOR_HPP__
 #define __VISITOR_HPP__
 
-#include "op.hpp"
-#include "rand.hpp"
-#include "add.hpp"
-#include "sub.hpp"
-#include "mult.hpp"
-#include "div.hpp"
-#include "pow.hpp"
-#include <string>
+
 
 class Op;
 class Rand;
@@ -53,98 +46,24 @@ class VisitMathML : public Visitor{
 		std::string output = "";
 		int index = 0;
 	public:
-		virtual void visit_op(Op* node){
-			addIndex();
-			std::string input = "\t<cn>" + node->stringify() + "</cn>\n";
-			finaloutput(input);
-		}
-		virtual void visit_rand(Rand* node){
-			addIndex();
-			std::string input = "\t<cn>" + node->stringify() + "</cn>\n";
-			finaloutput(input);
-		}
+		virtual void visit_op(Op* node);
+		virtual void visit_rand(Rand* node);
 		
-		virtual void visit_add_begin(ADD* node){
-			addIndex();
-			std::string input = "\t<apply>\n";
-			finaloutput(input);
-			increment;
-			addIndex();
-			input = "\t<plus/>\n";
-			finaloutput(input);
-		}
-
+		virtual void visit_add_begin(ADD* node);
         	virtual void visit_add_middle(ADD* node);
-        	virtual void visit_add_end(ADD* node){
-			decrement();
-			addIndex();
-			std::string input = "\t</apply>\n";
-			finaloutput(input);
-		}
-		virtual void visit_sub_begin(SUB* node){
-			addIndex();
-                        std::string input = "\t<apply>\n";
-                        finaloutput(input);
-                        increment;
-                        addIndex();
-                        input = "\t<minus/>\n";
-                        finaloutput(input);
-		}
+        	virtual void visit_add_end(ADD* node);
+		virtual void visit_sub_begin(SUB* node);
         	virtual void visit_sub_middle(SUB* node);
-        	virtual void visit_sub_end(SUB* node){
-			decrement();
-                        addIndex();
-                        std::string input = "\t</apply>\n";
-                        finaloutput(input);
-		}
-		virtual void visit_mult_begin(Mult* node){
-			addIndex();
-                        std::string input = "\t<apply>\n";
-                        finaloutput(input);
-                        increment;
-                        addIndex();
-                        input = "\t<times/>\n";
-                        finaloutput(input);
-		}
+        	virtual void visit_sub_end(SUB* node);
+		virtual void visit_mult_begin(Mult* node);
         	virtual void visit_mult_middle(Mult* node);
-        	virtual void visit_mult_end(Mult* node){
-			decrement();
-                        addIndex();
-                        std::string input = "\t</apply>\n";
-                        finaloutput(input);
-		}
-		virtual void visit_div_begin(Div* node){
-			addIndex();
-                        std::string input = "\t<apply>\n";
-                        finaloutput(input);
-                        increment;
-                        addIndex();
-                        input = "\t<divide/>\n";
-                        finaloutput(input);
-		}
+        	virtual void visit_mult_end(Mult* node);
+		virtual void visit_div_begin(Div* node);
         	virtual void visit_div_middle(Div* node);
-        	virtual void visit_div_end(Div* node){
-			decrement();
-                        addIndex();
-                        std::string input = "\t</apply>\n";
-                        finaloutput(input);
-		}
-        	virtual void visit_pow_begin(POW* node){
-			addIndex();
-                        std::string input = "\t<apply>\n";
-                        finaloutput(input);
-                        increment;
-                        addIndex();
-                        input = "\t<power/>\n";
-                        finaloutput(input);
-		}
+        	virtual void visit_div_end(Div* node);
+        	virtual void visit_pow_begin(POW* node);
         	virtual void visit_pow_middle(POW* node);
-        	virtual void visit_pow_end(POW* node){
-			decrement();
-                        addIndex();
-                        std::string input = "\t</apply>\n";
-                        finaloutput(input);
-		}
+        	virtual void visit_pow_end(POW* node);
 
 		virtual std::string getString(){
 			return output;

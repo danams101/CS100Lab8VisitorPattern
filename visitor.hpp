@@ -69,4 +69,35 @@ class VisitorLaTeX : public Visitor {
         virtual void visit_pow_end(POW* node);
 };
 
+class VisitorMathML : public Visitor {
+    private:
+        std::string str;
+	int numIndents;
+
+    public:
+        VisitorMathML();
+
+        std::string getString();
+	void prependIndents();
+        virtual void visit_op(Op* node);
+        virtual void visit_rand(Rand* node);
+
+        virtual void visit_add_begin(ADD* node);
+        virtual void visit_add_middle(ADD* node);
+        virtual void visit_add_end(ADD* node);
+        virtual void visit_sub_begin(SUB* node);
+        virtual void visit_sub_middle(SUB* node);
+        virtual void visit_sub_end(SUB* node);
+        virtual void visit_mult_begin(Mult* node);
+        virtual void visit_mult_middle(Mult* node);
+        virtual void visit_mult_end(Mult* node);
+        virtual void visit_div_begin(Div* node);
+        virtual void visit_div_middle(Div* node);
+        virtual void visit_div_end(Div* node);
+        virtual void visit_pow_begin(POW* node);
+        virtual void visit_pow_middle(POW* node);
+        virtual void visit_pow_end(POW* node);
+};
+
+
 #endif //__VISITOR_HPP__

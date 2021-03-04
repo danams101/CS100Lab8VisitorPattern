@@ -23,6 +23,18 @@ std::string PrintLaTeX(Base* ptr){
     return v->getString();
 }
 
+std::string PrintMathML(Base* ptr){
+	Iterator* it = new Iterator(ptr);
+	
+	VisitMathML* v = new VisitMathML();
+	for(it; !it->is_done();it->next()){
+		it->current_node() -> accept(v,it->current_index());
+	}	
+
+	return v->getString();
+}
+
+
 int main() {
     Base* val1 = new Op(1);
     Base* val2 = new Op(2);
@@ -42,6 +54,9 @@ int main() {
 
     std::cout << PrintLaTeX(add) << "\n";
 
+    std::cout << add->stringify() << " => \n MathML: ";
+
+    std::cout << PrintMathML(add) << "\n";
 
     return 0;
 }

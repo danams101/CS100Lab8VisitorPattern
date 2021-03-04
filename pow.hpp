@@ -3,6 +3,7 @@
 
 #include "base.hpp"
 #include <cmath>
+#include "visitor.hpp"
 
 class POW : public Base{
 	private:

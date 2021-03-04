@@ -2,6 +2,7 @@
 #define __RAND_HPP__
 
 #include "base.hpp"
+#include "visitor.hpp"
 
 class Rand : public Base {
     public:
